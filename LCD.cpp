@@ -15,6 +15,24 @@ LCD::LCD(uint8_t rs, uint8_t rw, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6,
 	display_mode = ENTRY_MODE;
 }
 
+LCD::LCD(uint8_t rs, uint8_t rw, uint8_t en, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) {
+	rs_pin = rs;
+	rw_pin = rw;
+	en_pin = en;
+	data_pins[0] = d0;
+	data_pins[1] = d1;
+	data_pins[2] = d2;
+	data_pins[3] = d3;
+	data_pins[4] = d4;
+	data_pins[5] = d5;
+	data_pins[6] = d6;
+	data_pins[7] = d7;
+
+	display_function = FUNCTION_SET | EIGHT_BITS;
+	display_control = DISPLAY_CONTROL;
+	display_mode = ENTRY_MODE;
+}
+
 void LCD::begin(uint8_t row, uint8_t col) {
 	if(row == 1) {
 		display_function |= ONE_LINE;
@@ -145,6 +163,41 @@ void LCD::clear() {
 void LCD::home() {
 	command(RETURN_HOME);
 	delay(3);
+}
+
+void LCD::displayOn()
+{
+	display_control |= DISPLAY_ON;
+	command(display_control);
+}
+
+void LCD::displayOff()
+{
+	display_control &= ~(DISPLAY_ON);
+	command(display_control);
+}
+
+void LCD::cursorOn()
+{
+	display_control |= CURSOR_ON;
+	command(display_control);
+}
+
+void LCD::cursorOff()
+{
+	display_control &= ~(CURSOR_ON);
+}
+
+void LCD::blinkOn()
+{
+	display_control |= BLINKING_ON;
+	command(display_control);
+}
+
+void LCD::blinkOff()
+{
+	display_control &= ~(BLINKING_ON);
+	command(display_control);
 }
 
 inline size_t LCD::write(uint8_t value) {

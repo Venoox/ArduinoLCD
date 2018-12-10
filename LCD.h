@@ -54,8 +54,12 @@ public:
 	LCD(uint8_t rs, uint8_t rw, uint8_t en, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7); //8 bit mode
 	void clear();
 	void home();
-	void display();
-	void noDisplay();
+	void displayOn();
+	void displayOff();
+	void cursorOn();
+	void cursorOff();
+	void blinkOn();
+	void blinkOff();
 	void begin(uint8_t, uint8_t);
 	void setCursor(uint8_t, uint8_t);
 	virtual size_t write(uint8_t);
