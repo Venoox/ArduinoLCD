@@ -100,18 +100,18 @@ void LCD::command(uint8_t value) {
 	if(!(display_function & EIGHT_BITS)) {
 		digitalWrite(rs_pin, LOW);
 		digitalWrite(rw_pin, LOW);
-		delay(1);
+		delayMicroseconds(1);
 		write4(value>>4);
-		delay(1);
+		delayMicroseconds(1);
 		write4(value);
-		delay(1);
+		delayMicroseconds(1);
 	}
 	else {
 		digitalWrite(rs_pin, LOW);
 		digitalWrite(rw_pin, LOW);
-		delay(1);
+		delayMicroseconds(1);
 		write8(value);
-		delay(1);
+		delayMicroseconds(1);
 	}
 }
 
@@ -119,50 +119,50 @@ void LCD::send(uint8_t value) {
 	if(!(display_function & EIGHT_BITS)) {
 		digitalWrite(rs_pin, HIGH);
 		digitalWrite(rw_pin, LOW);
-		delay(1);
+		delayMicroseconds(1);
 		write4(value>>4);
-		delay(1);
+		delayMicroseconds(1);
 		write4(value);
-		delay(1);
+		delayMicroseconds(1);
 	}
 	else {
 		digitalWrite(rs_pin, HIGH);
 		digitalWrite(rw_pin, LOW);
-		delay(1);
+		delayMicroseconds(1);
 		write8(value);
-		delay(1);
+		delayMicroseconds(1);
 	}
 }
 
 
 void LCD::write4(uint8_t value) {
 	digitalWrite(en_pin, HIGH);
-	delay(1);
+	delayMicroseconds(10);
 	for(int i=0; i<4; i++) {
 		digitalWrite(data_pins[i], (value>>i) & 0x01);
 	}
 	digitalWrite(en_pin, LOW);
-	delay(1);
+	delayMicroseconds(10);
 }
 
 void LCD::write8(uint8_t value) {
 	digitalWrite(en_pin, HIGH);
-	delay(1);
+	delayMicroseconds(10);
 	for(int i=0; i<8; i++) {
 		digitalWrite(data_pins[i], (value>>i) & 0x01);
 	}
 	digitalWrite(en_pin, LOW);
-	delay(1);
+	delayMicroseconds(10);
 }
 
 void LCD::clear() {
 	command(CLEAR_DISPLAY);
-	delay(3);
+	delayMicroseconds(100);
 }
 
 void LCD::home() {
 	command(RETURN_HOME);
-	delay(3);
+	delay(2);
 }
 
 void LCD::displayOn()
