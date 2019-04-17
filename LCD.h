@@ -62,6 +62,7 @@ public:
 	void blinkOff();
 	void begin(uint8_t, uint8_t);
 	void setCursor(uint8_t, uint8_t);
+	void setCustomChar(uint8_t, uint8_t[]);
 	virtual size_t write(uint8_t);
 	using Print::write;
 private:
