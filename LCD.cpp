@@ -96,6 +96,15 @@ void LCD::setCursor(uint8_t row, uint8_t col) {
 	}
 }
 
+void LCD::setCustomChar(uint8_t position, uint8_t data[]) {
+	position = position & B0000111; //page 19
+	position = position << 3; //page 19
+	command(SET_CGRAM | position);
+	for(int i=0; i<8; i++) {
+		send(data[i]);
+	}
+}
+
 void LCD::command(uint8_t value) {
 	if(!(display_function & EIGHT_BITS)) {
 		digitalWrite(rs_pin, LOW);
